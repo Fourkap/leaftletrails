@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet debug page</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js" integrity="sha512-WXoSHqw/t26DszhdMhOXOkI7qCiv5QWXhH9R7CgvgZMHz1ImlkVQ3uNsiQKu5wwbbxtPzFXd1hK4tzno2VqhpA==" crossorigin=""></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+</head>
+<body>
+
+<h1>Map#index</h1>
+<p>Find me in app/views/map/index.html.erb</p>
+
+<%= @array %>
+
+<div id="map"></div>
+
+<script type="text/javascript">
+
+    map = L.map('map').setView(<%= @arraycenter %>, 13)
+
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        maxZoom: 18
+    }).addTo(map)
+    var tabpoint = <%= @arraypoint %>
+    var tabinfo = <%=raw  @arrayinfo %>
+    console.log(tabinfo);
+      for (var i = 0; i < tabpoint.length; i++) {
+        var marker = L.marker(tabpoint[i]).addTo(map);
+        marker.bindPopup(tabpoint[i][0] + '<br>' + tabpoint[i][1] + "<br>" + tabinfo[i][0] + "<br>" + tabinfo[i][1] + "<br>" + tabinfo[i][2])
+    }
+    marker = L.marker(<%= @array %>).addTo(map)
+
+</script>
+
+
+</body>
+</html>
